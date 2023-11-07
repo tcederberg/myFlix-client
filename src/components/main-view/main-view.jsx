@@ -27,7 +27,7 @@ export const MainView = () => {
                         Birth: movie.Director.Birth,
                         Death: movie.Director.Death
                     },
-                    featured: movie.featured,
+                    Featured: movie.Featured,
                 };
             });
             setMovies(moviesFromApi);
