@@ -2,9 +2,16 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
 
 export const MainView = () => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
+    const [user, setUser] = useState(storedUser? storedUser:null);
+    const [token, setToken] = useState(storedToken? storedToken:null);
     const [movies, setMovies] = useState([]);
+    const [selectedMovie, setSelectedMovie] = useState(null);
 
     useEffect(() => {
         fetch("https://my-movies-flix-007-49f90683c638.herokuapp.com/movies")
@@ -27,15 +34,25 @@ export const MainView = () => {
                         Birth: movie.Director.Birth,
                         Death: movie.Director.Death
                     },
-                    Featured: movie.Featured,
+                    Featured: movie.Featured.toString(),
                 };
             });
             setMovies(moviesFromApi);
         });
-    }, []);
+    }, [token]);
 
-    const [selectedMovie, setSelectedMovie] = useState(null);
-
+    if (!user) {
+        return (
+        <>
+            <LoginView onLoggedIn={(user, token) => {
+                setUser(user);
+                setToken(token);
+            }} />
+            or
+            <SignupView />
+            </>
+        );
+    }
     if (selectedMovie) {
         return (
             <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)}/>
@@ -45,6 +62,7 @@ export const MainView = () => {
         return <div>The list is empty!</div>;
     }
     return (
+        <>
         <div>
            {movies.map((movie) => (
             <MovieCard
@@ -56,5 +74,7 @@ export const MainView = () => {
             />
            ))}
         </div>
-    );
+        <button onClick={() => { setUser(null); storedToken(null); localStorage.clear() }} >Logout</button>
+        </>
+    )
 };
