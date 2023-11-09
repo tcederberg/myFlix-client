@@ -1,5 +1,13 @@
-$color: steelblue;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 
-.my-flix {
-    color: $color;
-}
+$primary: rgb(123, 203, 246);
+$secondary: white;
+$body-bg: white;
+
+@import '~bootstrap/scss/bootstrap.scss';
+
+//$color: steelblue;
+
+//.my-flix {
+    //color: $color;
+//}
