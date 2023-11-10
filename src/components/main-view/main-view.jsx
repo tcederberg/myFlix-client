@@ -4,6 +4,8 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import "./main-view.scss";
 
 export const MainView = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -14,10 +16,11 @@ export const MainView = () => {
     const [selectedMovie, setSelectedMovie] = useState(null);
 
     useEffect(() => {
-        fetch("https://my-movies-flix-007-49f90683c638.herokuapp.com/movies")
+        if (!token) return;
+        fetch("https://my-movies-flix-007-49f90683c638.herokuapp.com/movies", {headers:{Authorization: `Bearer ${token}`}})
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            console.log("Movies from API", data);
             const moviesFromApi = data.map((movie) => {
                 return {
                     _id: movie._id,
@@ -43,14 +46,25 @@ export const MainView = () => {
 
     if (!user) {
         return (
-        <>
+        <div>
+        <Row className="mt-5">
+            <Col className="mt-t col-12"></Col>
+            <Col className="mt-t col-12"></Col>
+            <Col className="mt-t col-12"></Col>
+        </Row>
+        <Container>
+            <Row className="justify-content-md-center">
+                <Col className="text-center fs-2 m-5">
+                    MyFlix Movie Archive
+                </Col>
+            </Row>
+        </Container>
+        <SignupView />
             <LoginView onLoggedIn={(user, token) => {
                 setUser(user);
                 setToken(token);
             }} />
-            or
-            <SignupView />
-            </>
+        </div>
         );
     }
     if (selectedMovie) {
@@ -62,19 +76,27 @@ export const MainView = () => {
         return <div>The list is empty!</div>;
     }
     return (
-        <>
-        <div>
+    <>
+        <Row className="mt-5">
+            <Col className="mt-5 col-12"></Col>
+            <Col className="mt-5 col-12"></Col>
+            <Col className="mt-5 col-12"></Col>
+        </Row>
+        <Row className="mb-5 justify-content-center">
            {movies.map((movie) => (
+            <Col key={movie.Title} 
+            className="mb-5 col-xl-3 col-lg-4 col-md-6 col-sm-12 card-size">
             <MovieCard
-            key={movie.Title}
             movie={movie}
             onMovieClick={(newSelectedMovie) => {
                 setSelectedMovie(newSelectedMovie);
             }}
             />
+            </Col>
            ))}
-        </div>
-        <button onClick={() => { setUser(null); storedToken(null); localStorage.clear() }} >Logout</button>
-        </>
-    )
+           </Row>
+            <Button onClick={() => { setUser(null); storedToken(null); localStorage.clear() }}
+            className="m-3 text-align-center" >Logout</Button>
+    </>
+    );
 };
