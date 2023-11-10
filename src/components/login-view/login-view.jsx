@@ -40,7 +40,7 @@ export const LoginView = ({ onLoggedIn }) => {
         });
     }
     return (
-        <Container>
+        <Container className="margin-top-custom">
             <Row className="justify-content-md-center">
                 <Col md={5}>
                     <CardGroup className="">

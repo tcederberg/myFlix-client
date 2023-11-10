@@ -7,11 +7,6 @@
   padding: 20px;
 }
 
-.card {
-  background-color: #bce7ff;
-  border-radius: 20px;
-}
-
 .moviePoster {
   object-fit: cover;
   text-align: center;
@@ -26,6 +21,15 @@
 .card-size {
   align-items: center;
   min-width: 400px;
+}
+
+.card-custom {
+  background-color: #bce8ff;
+  border-radius: 20px;
+}
+
+.margin-top-custom {
+  margin-top: 15rem;
 }
 
 :root, [data-bs-theme="light"] {

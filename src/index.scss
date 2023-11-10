@@ -3,6 +3,16 @@
 $primary: rgb(123, 203, 246);
 $secondary: white;
 $body-bg: white;
+$bs-body-bg: rgb(179, 253, 179);
+
+.card-custom{
+    background-color: rgb(188, 232, 255);
+    border-radius: 20px;
+}
+
+.margin-top-custom{
+    margin-top: 15rem;
+}
 
 @import '~bootstrap/scss/bootstrap.scss';
 
