@@ -1,66 +1,107 @@
 import "../movie-view/movie-view.scss";
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import NavigationBar from "../navigation-bar/navigation-bar";
+import React, { useState } from "react";
+import { Button } from "react-bootstrap";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export const MovieView = ({ movies }) => {
-    const { movieId } = useParams();
+export const MovieView = ({ user, token, setUser }) => {
+    const movies = useSelector((state) => state.movies.list);  
+  const { movieId } = useParams(); 
 
-    if (!movies.length) {
-        return <></>;
-    }
-    const movie = movies.find((m) => m._id === movieId);
-    if (!movie) {
-        return <div>movie not found</div>;
-    }
-    return (
-        <>
-        <Container className="">
-            <Row className="justify-content-md-center">
-                <Col className="col-lg-6">
-                    <Card className="border-0 moviePoster mx-auto">
-                        <Card.Img src={movie.ImagePath} className="rounded-4" />
-                    </Card>
-                </Col>
-                <Col className="col-lg-6 mt-5 mt-md-0">
-                    <Card className="movie-info border-0 h-100 card-custom">
-                        <Card.Body className="d-flex flex-column">
-                            <Card.Title className="fs-2">{movie.Title}</Card.Title>
-                            <Card.Text>{movie.Description}</Card.Text>
-                            <Card.Title>Director: </Card.Title>
-                            <Card.Text>{movie.Director.Name}</Card.Text>
-                            <Card.Title>Genre: </Card.Title>
-                            <Card.Text>{movie.Genre.Name}</Card.Text>
-                        </Card.Body>
-                        <Link to="/movies">
-                        <Button
-                            className="mt-auto m-4"
-                            variant="primary"
-                            onClick={onBackClick}>Go Back
-                        </Button>
-                        </Link>
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
-        </>
-    );
-};
+  const movie = movies.find((m) => m.id === movieId);
 
-MovieView.propTypes = {
-    movie: PropTypes.shape({
-        ImagePath: PropTypes.string.isRequired,
-        Title: PropTypes.string.isRequired,
-        Description: PropTypes.string.isRequired,
-        Genre: PropTypes.shape({
-            Name: PropTypes.string.isRequired,
-        }),
-        Director: PropTypes.shape({
-            Name: PropTypes.string.isRequired,
-        }),
-        Featured: PropTypes.bool.isRequired
-    })
+   let favoriteMovies = movies.filter(m => user.FavoriteMovies.includes(m.id));
+
+  const [isFavorite, setIsFavorite] = useState(
+    favoriteMovies.includes(movies._id)
+  );
+
+  function favoriteMovie() {
+    fetch(`https://my-movies-flix-007-49f90683c638.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        alert("Something went wrong");
+        return false;
+      }
+    }).then((user) => {
+      if (user) {
+        alert("Successfuly added to favorites")
+        localStorage.setItem("user", JSON.stringify(user));
+        setUser(user);
+        setIsFavorite(true);
+        console.log(isFavorite);
+      }
+    });
+  };
+
+  const unfavoriteMovie = () => {
+    fetch(`https://moviesappmyflix-02f853986708.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else { 
+        alert("Something went wrong");
+        return false;
+      }
+    }).then((user) => {
+      if (user) {
+        alert("Successfully removed from favorites")
+        localStorage.setItem("user", JSON.stringify(user));
+        setUser(user);
+        setIsFavorite(false);
+        console.log(isFavorite);
+      }
+    });
+  };
+    
+  return (
+    <div className="d-grid gap-3">
+      <div>
+        <img className="rounded-5" src={movie.ImagePath} />
+      </div>
+      <div>
+        <span style={{ fontWeight: 'bold' }}>Title: </span>
+        <span>{movie.Title}</span>
+      </div>
+      <div>
+        <span style={{ fontWeight: 'bold' }}>Description: </span>
+        <span>{movie.Description}</span>
+      </div>
+      <div>
+        <span style={{ fontWeight: 'bold' }}>Director: </span>
+        <span>{movie.Director.Name}</span>
+      </div>
+      <div>
+        <span style={{ fontWeight: 'bold' }}>Genre: </span>
+        <span>{movie.Genre.Name}</span>
+      </div>
+      <div>
+        <span style={{ fontWeight: 'bold' }}>Featured: </span>
+        <span>{movie.Featured}</span>
+      </div>
+      <Link to={`/`}>
+        <Button className="back-button">Back</Button>
+      </Link>
+      {isFavorite ? (
+        <Button className="fav-button" onClick={unfavoriteMovie}>
+          Unfavorite
+        </Button>
+      ) : (
+        <Button className="fav-button" onClick={favoriteMovie}>
+          Favorite
+        </Button>
+      )}
+    </div>
+  );
 };

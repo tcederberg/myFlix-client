@@ -5,16 +5,27 @@ $secondary: white;
 $body-bg: white;
 $bs-body-bg: rgb(179, 253, 179);
 
-.card-custom{
-    background-color: rgb(188, 232, 255);
-    border-radius: 20px;
-}
-
-.margin-top-custom{
-    margin-top: 15rem;
-}
-
 @import '~bootstrap/scss/bootstrap.scss';
+
+.button-text {
+    text-decoration: none;
+    color: rgb(24, 118, 212);
+    font-weight: bold;
+  }
+  
+  .card-img {
+    height: 70%; 
+  }
+  
+  .navbar {
+    background-color: white;
+    border-radius: 0px 0px 1em 1em;
+    margin-bottom: 2em;
+  }
+  
+  .fav-button {
+    margin-bottom: 2em;
+  }
 
 //$color: steelblue;
 
