@@ -2948,9 +2948,16 @@ var _mainView = require("./components/main-view/main-view");
 var _reactBootstrap = require("react-bootstrap");
 var _indexScss = require("./index.scss");
 const App = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
-        className: "",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Provider, {
+        store: store,
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+            className: "",
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
+                fileName: "src/index.jsx",
+                lineNumber: 10,
+                columnNumber: 13
+            }, undefined)
+        }, void 0, false, {
             fileName: "src/index.jsx",
             lineNumber: 9,
             columnNumber: 9
@@ -2966,7 +2973,7 @@ const container = document.querySelector("#root");
 const root = (0, _client.createRoot)(container);
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 17,
+    lineNumber: 19,
     columnNumber: 13
 }, undefined));
 var _c;

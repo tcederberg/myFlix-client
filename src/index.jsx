@@ -5,9 +5,11 @@ import "./index.scss";
 
 const App = () => {
     return (
-    <Container className="">
-        <MainView />
-    </Container>
+    <Provider store={store}>
+        <Container className="">
+            <MainView />
+        </Container>
+    </Provider>
     );
 };
 
