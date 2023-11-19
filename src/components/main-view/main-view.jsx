@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { MovieView } from "../movie-view/movie-view";
-import { LoginView } from "../login-view/login-view";
-import { SignupView } from "../signup-view/signup-view";
+import { MovieView } from "./../movie-view/movie-view";
+import { LoginView } from "./../login-view/login-view";
+import { SignupView } from "./../signup-view/signup-view";
 import { Col, Row } from "react-bootstrap";
-import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { MoviesList } from "../movies-list/movies-list";
+import { NavigationBar } from "./../navigation-bar/navigation-bar";
+import { MoviesList } from "./../movies-list/movies-list";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { ProfileView } from "../profile-view/profile-view";
+import { ProfileView } from "./../profile-view/profile-view";
 import { useSelector, useDispatch } from "react-redux";
-import { setMovies } from "../../redux/reducers/movies";
+import { setMovies } from "./../../../redux/reducers/movies";
 
 export const MainView = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));

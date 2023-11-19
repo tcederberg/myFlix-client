@@ -4,7 +4,7 @@ import {
     Col,
     Form,
 } from "react-bootstrap";
-import { MovieCard } from "../movie-card/movie-card";
+import { MovieCard } from "./../movie-card/movie-card";
 
 export const ProfileView = ({ user, token, movies, setUser }) => {
     const[Username, setUsername] = useState(user.Username);
