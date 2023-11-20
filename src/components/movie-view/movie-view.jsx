@@ -10,7 +10,7 @@ export const MovieView = ({ user, token, setUser }) => {
   const { movieId } = useParams(); 
 
   const movie = movies.find((m) => m.id === movieId);
-
+        console.log("Movie ID :", movieId);
    let favoriteMovies = movies.filter(m => user.FavoriteMovies.includes(m.id));
 
   const [isFavorite, setIsFavorite] = useState(

@@ -53278,6 +53278,7 @@ const MovieView = ({ user, token, setUser })=>{
     const movies = (0, _reactRedux.useSelector)((state)=>state.movies.list);
     const { movieId } = (0, _reactRouter.useParams)();
     const movie = movies.find((m)=>m.id === movieId);
+    console.log("Movie ID :", movieId);
     let favoriteMovies = movies.filter((m)=>user.FavoriteMovies.includes(m.id));
     const [isFavorite, setIsFavorite] = (0, _react.useState)(favoriteMovies.includes(movies._id));
     function favoriteMovie() {
@@ -53545,7 +53546,7 @@ const LoginView = ({ onLoggedIn })=>{
             access: Username,
             secret: Password
         };
-        fetch("https://my-movies-flix-007-49f90683c638.herokuapp.com/login", {
+        fetch(`https://my-movies-flix-007-49f90683c638.herokuapp.com/login?Username=${data.access}&Password=${data.secret}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
