@@ -20,7 +20,7 @@
     "redux": "^4.2.1"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.10.2",
+    "@parcel/transformer-sass": "^2.9.3",
     "parcel": "^2.9.3",
     "process": "^0.11.10"
   }
