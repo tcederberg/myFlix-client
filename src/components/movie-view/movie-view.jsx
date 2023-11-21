@@ -2,7 +2,7 @@ import "../movie-view/movie-view.scss";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import NavigationBar from "../navigation-bar/navigation-bar";
+//import NavigationBar from "./../navigation-bar/navigation-bar";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 
