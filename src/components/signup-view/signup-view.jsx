@@ -8,7 +8,7 @@ import {
     Form,
     Row,
 } from "react-bootstrap";
-import CardHeader from "react-bootstrap/esm/CardHeader";
+//import CardHeader from "react-bootstrap/esm/CardHeader";
 
 export const SignupView = () => {
     const[Username, setUsername] = useState("");

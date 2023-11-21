@@ -1,13 +1,19 @@
 import { createRoot } from 'react-dom/client';
 import { MainView } from "./components/main-view/main-view";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import { store } from "./../redux/store";
+import { Provider } from "react-redux";
+
 import "./index.scss";
+
 
 const App = () => {
     return (
-    <Container className="">
-        <MainView />
-    </Container>
+    <Provider store={store}>
+        <Container className="">
+            <MainView />
+        </Container>
+    </Provider>
     );
 };
 

@@ -128,7 +128,7 @@ return (
                                     <Button
                                         variant="primary"
                                         type="submit"
-                                        onClick={handleUpdate}
+                                        onClick={handleSubmit}
                                         className="text-white"
                                     >update profile
                                     </Button>
